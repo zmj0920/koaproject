@@ -1,5 +1,5 @@
 const pool=require('../pool.js');
-const Promise=require('bluebird');
+const Promise=require('bluebird'); //引入bluebird模块为了使用Promise回调函数
 
 let query = ( sql, values ) => {
      return new Promise(( resolve, reject ) => {
@@ -23,7 +23,7 @@ let query = ( sql, values ) => {
          })
      })
  }
-
+//查询用户信息
  exports.user=async ()=>{
      let _sql="select * from xz_user";
      return query(_sql);
