@@ -7,4 +7,5 @@ password:'root',
 database:'xz',
 connectionLimit:20
 });
-module.exprots.pool;
+
+module.exports=pool;

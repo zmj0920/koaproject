@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+ <link rel="stylesheet" href="stylesheets/bootstrap.css">
+</head>
+<body onload="get_list()">
+    <table  class="table table-active">
+        <thead>
+        <tr>
+            <th>登录名称</th>
+            <th>电子邮箱</th>
+            <th>联系方式</th>
+            <th>真实姓名</th>
+            <th>用户性别</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="content"></tbody>
+    </table>
+    <script>
+        function get_list(){
+            //1.创建xhr
+            var xhr=new XMLHttpRequest();
+            //2.绑定监听
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState==4&&xhr.status==200){
+                    //获得响应数据
+                    var result=xhr.responseText;
+                    //jSOn解析
+                    var list=JSON.parse(result);
+                    var html="";
+                    for(var i=0;i<list.length;i++){
+                        html+="<tr>";
+                        html+="<td>"+list[i].uname+"</td>";
+                        html+="<td>"+list[i].email+"</td>";
+                        html+="<td>"+list[i].phone+"</td>";
+                        html+="<td>"+list[i].user_name+"</td>";
+                        var gender="";
+                        if(list[i].gender==1){
+                            gender="男";
+                        }else if(list[i].gender==0){
+                            gender="女";
+                        }else{
+                            gender="不详";
+                        }
+                        html+="<td>"+gender+"</td>";
+                        html+="<td>";
+                        html+="<a href='javascript:deleteUser("+list[i].uid+")'>删除</a>";
+                        html+="<a href='05_update.html?uid="+list[i].uid+"'>修改</a>";
+                        html+="</td>";
+                        html+="</tr>";
+                    }
+                    content.innerHTML=html;
+                }
+            }
+            //3.创建请求，打开链接
+            xhr.open("get","/user",true);
+            //4.发送请求
+            xhr.send(null);
+        }
+    </script>
+    </body>
+</html>
