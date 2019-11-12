@@ -24,11 +24,17 @@ let query = (sql, values) => {
     })
 }
 //查询用户
-exports.user = async () => {
-    let _sql = "select * from xz_user";
+exports.user = async (page, size) => {
+   // var offset = ;
+    let _sql = `select * from xz_user limit ${(page-1)*size},${size}`;
     return query(_sql);
 }
 
+exports.userTotal = async (page, size) => {
+     let _sql = `SELECT COUNT(*) as total FROM  xz_user`;
+     return query(_sql);
+ }
+ 
 
 // 删除用户
 exports.deleteUserData = async (uid) => {
@@ -42,7 +48,7 @@ exports.updateUser = async (values) => {
     return query(_sql, values);
 }
 
-exports.insertUser=async (values) =>{
-let _sql =`insert into xz_user set ?`;
-   return query(_sql,values);
+exports.insertUser = async (values) => {
+    let _sql = `insert into xz_user set ?`;
+    return query(_sql, values);
 }
