@@ -16,6 +16,7 @@ exports.selectUser = async ctx => {
 //删除用户
 exports.deleteUser = async ctx => {
     let uid = ctx.request.body.uid;
+    console.log(uid)
     await sql.deleteUserData(uid).then(() => {
         ctx.body = {
             code: 200,
