@@ -2,14 +2,12 @@ const sql = require('../mysql/mysql.js');
 
 //查询用户
 exports.selectUser = async ctx => {
-    // console.log(ctx.request.query.page)
-    let page = ctx.request.query.page
-    let size = ctx.request.query.size
+    let pageNum = ctx.request.query.pageNum
+    let pageSize = ctx.request.query.pageSize
     let count
     await sql.userTotal().then(res => count=res[0].total)
-    console.log(count)
-    await sql.user(page, size).then((res) => {
-        ctx.body = {data:res, total:count,page,size};
+    await sql.user(pageNum, pageSize).then((res) => {
+        ctx.body = {data:res, total:Number(count),pageNum:Number(pageNum),pageSize:Number(pageSize)};
         ctx.response.status = 200;
     }).catch(() => {
         ctx.body = 'error'
