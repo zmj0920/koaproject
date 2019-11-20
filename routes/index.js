@@ -1,7 +1,7 @@
 const router = require('koa-router')()
 const jwt = require('jsonwebtoken');
 
-router.get('/', async (ctx, next) => {
+router.get('/test', async (ctx, next) => {
   await ctx.render('index', {
     title: 'Hello Koa 2!'
   })

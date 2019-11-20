@@ -52,3 +52,9 @@ exports.insertUser = async (values) => {
     let _sql = `insert into xz_user set ?`;
     return query(_sql, values);
 }
+
+
+exports.login = async (userName, password) => {
+    let _sql = `SELECT COUNT(*) as count FROM userinfo WHERE userName='${userName}' AND password='${password}'`;
+    return query(_sql);
+}

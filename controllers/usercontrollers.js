@@ -5,9 +5,9 @@ exports.selectUser = async ctx => {
     let pageNum = ctx.request.query.pageNum
     let pageSize = ctx.request.query.pageSize
     let count
-    await sql.userTotal().then(res => count=res[0].total)
+    await sql.userTotal().then(res => count = res[0].total)
     await sql.user(pageNum, pageSize).then((res) => {
-        ctx.body = {data:res, total:Number(count),pageNum:Number(pageNum),pageSize:Number(pageSize)};
+        ctx.body = { data: res, total: Number(count), pageNum: Number(pageNum), pageSize: Number(pageSize) };
         ctx.response.status = 200;
     }).catch(() => {
         ctx.body = 'error'
@@ -67,4 +67,23 @@ exports.insertUser = async ctx => {
         }
     })
 
+}
+
+
+
+//登录
+
+exports.login = async ctx => {
+    let userName = ctx.request.body.userName
+    let password = ctx.request.body.password
+    let count
+    await sql.login(userName, password).then(res => count = res[0].count)
+    console.log(count)
+    if (count == 1) {
+        ctx.body = {
+            message: "123456",
+            status: 200,
+            data: { name: "zmj" }
+        }
+    }
 }
